@@ -38,7 +38,7 @@ document.addEventListener('keydown', function (e) {
 });
 
 document.querySelector('.btn--scroll-to').addEventListener('click', () => {
-  document.querySelector('.section').scrollIntoView({behavior: 'smooth'});
+  document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
 });
 
 navContainer.addEventListener('click', (e) => {
@@ -46,7 +46,7 @@ navContainer.addEventListener('click', (e) => {
   if (!e.target.classList.contains('nav__link')) return;
 
   const id = e.target.getAttribute('href');
-  document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+  document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
 });
 
 // TABS
@@ -62,7 +62,7 @@ tabsContainer.addEventListener('click', (e) => {
 });
 
 // NAV HOVER
-const changeOpacity = function(e) {
+const changeOpacity = function (e) {
   if (!e.target.classList.contains('nav__link')) return;
 
   e.target.closest('.nav').querySelectorAll('.nav__link, img').forEach(linkItem => {
@@ -78,7 +78,6 @@ nav.addEventListener('mouseout', changeOpacity.bind(1));
 
 // NAV STICKY
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight)
 
 const observerOptions = {
   root: null,
@@ -96,3 +95,17 @@ const observerCb = (entries) => {
 };
 const observer = new IntersectionObserver(observerCb, observerOptions)
 observer.observe(header);
+
+// SECTIONS ANIMATION
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.section').forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
