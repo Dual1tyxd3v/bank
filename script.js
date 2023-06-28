@@ -9,6 +9,10 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const header = document.querySelector('.header');
 const navContainer = document.querySelector('.nav__links');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const tabs = document.querySelectorAll('.operations__tab');
+const nav = document.querySelector('.nav');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -45,10 +49,6 @@ navContainer.addEventListener('click', (e) => {
 });
 
 // TABS
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
-const tabs = document.querySelectorAll('.operations__tab');
-
 tabsContainer.addEventListener('click', (e) => {
   const tab = e.target.closest('.operations__tab');
   if (!tab) return;
@@ -59,3 +59,18 @@ tabsContainer.addEventListener('click', (e) => {
   tabsContent.forEach(content => content.classList.remove('operations__content--active'));
   document.querySelector(`.operations__content--${tab.dataset.tab}`).classList.add('operations__content--active');
 });
+
+// NAV HOVER
+const changeOpacity = function(e) {
+  if (!e.target.classList.contains('nav__link')) return;
+
+  e.target.closest('.nav').querySelectorAll('.nav__link, img').forEach(linkItem => {
+    if (e.target !== linkItem) {
+      linkItem.style.opacity = this;
+    }
+  });
+};
+
+nav.addEventListener('mouseover', changeOpacity.bind(0.5));
+
+nav.addEventListener('mouseout', changeOpacity.bind(1));
