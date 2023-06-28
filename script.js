@@ -13,6 +13,7 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const tabs = document.querySelectorAll('.operations__tab');
 const nav = document.querySelector('.nav');
+const section1 = document.querySelector('#section--1');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -74,3 +75,24 @@ const changeOpacity = function(e) {
 nav.addEventListener('mouseover', changeOpacity.bind(0.5));
 
 nav.addEventListener('mouseout', changeOpacity.bind(1));
+
+// NAV STICKY
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight)
+
+const observerOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`
+};
+const observerCb = (entries) => {
+  const [entry] = entries;
+
+  if (entry.isIntersecting) {
+    nav.classList.remove('sticky');
+  } else {
+    nav.classList.add('sticky');
+  }
+};
+const observer = new IntersectionObserver(observerCb, observerOptions)
+observer.observe(header);
