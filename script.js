@@ -8,6 +8,7 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const header = document.querySelector('.header');
+const navContainer = document.querySelector('.nav__links');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -33,4 +34,12 @@ document.addEventListener('keydown', function (e) {
 
 document.querySelector('.btn--scroll-to').addEventListener('click', () => {
   document.querySelector('.section').scrollIntoView({behavior: 'smooth'});
+});
+
+navContainer.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (!e.target.classList.contains('nav__link')) return;
+
+  const id = e.target.getAttribute('href');
+  document.querySelector(id).scrollIntoView({behavior: 'smooth'});
 });
