@@ -31,8 +31,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-const message = document.createElement('div');
-message.innerHTML = `We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>"`;
-message.classList.add('cookie-message');
-header.append(message);
-document.querySelector('.btn--close-cookie').addEventListener('click', () => message.remove());
+document.querySelector('.btn--scroll-to').addEventListener('click', () => {
+  document.querySelector('.section').scrollIntoView({behavior: 'smooth'});
+});
