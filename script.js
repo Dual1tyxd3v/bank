@@ -121,3 +121,34 @@ const imgObserver = new IntersectionObserver((entries, observer) => {
 }, { rootMargin: '100px' });
 
 document.querySelectorAll('img[data-src]').forEach(img => imgObserver.observe(img));
+
+// SLIDER
+const slides = document.querySelectorAll('.slide');
+const btnSlideNext = document.querySelector('.slider__btn--right');
+const btnSlidePrev = document.querySelector('.slider__btn--left');
+
+let currentSlideIndex = 0;
+const MAX_SLIDE_INDEX = slides.length - 1;
+
+const toOrderSlides = (currentSlide) => {
+  slides.forEach((slide, i) => slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`);
+};
+toOrderSlides(currentSlideIndex);
+
+btnSlideNext.addEventListener('click', () => {
+  if (currentSlideIndex === MAX_SLIDE_INDEX) {
+    currentSlideIndex = 0;
+  } else {
+    currentSlideIndex++;
+  }
+  toOrderSlides(currentSlideIndex);
+});
+
+btnSlidePrev.addEventListener('click', () => {
+  if (currentSlideIndex === 0) {
+    currentSlideIndex = MAX_SLIDE_INDEX;
+  } else {
+    currentSlideIndex--;
+  }
+  toOrderSlides(currentSlideIndex);
+});
